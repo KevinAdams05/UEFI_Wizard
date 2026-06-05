@@ -1,0 +1,5 @@
+# Build output
+build/
+*.hpkg
+*.rsrc
+*.o

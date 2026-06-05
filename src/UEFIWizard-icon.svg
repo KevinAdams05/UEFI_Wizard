@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- UEFI Wizard icon: UEFI firmware chip boots from the ESP slice
+       this tool creates on the disk below. -->
+  <!-- chip pins (behind body) -->
+  <g fill="#8e9cb4">
+    <rect x="39" y="2.5" width="3" height="6" rx="1"/>
+    <rect x="45" y="2.5" width="3" height="6" rx="1"/>
+    <rect x="51" y="2.5" width="3" height="6" rx="1"/>
+    <rect x="39" y="24.5" width="3" height="6" rx="1"/>
+    <rect x="45" y="24.5" width="3" height="6" rx="1"/>
+    <rect x="51" y="24.5" width="3" height="6" rx="1"/>
+    <rect x="32.5" y="9" width="6" height="3" rx="1"/>
+    <rect x="32.5" y="15" width="6" height="3" rx="1"/>
+    <rect x="32.5" y="21" width="6" height="3" rx="1"/>
+    <rect x="54.5" y="9" width="6" height="3" rx="1"/>
+    <rect x="54.5" y="15" width="6" height="3" rx="1"/>
+    <rect x="54.5" y="21" width="6" height="3" rx="1"/>
+  </g>
+  <!-- chip body + die -->
+  <rect x="35" y="5" width="23" height="23" rx="3" fill="#46546a" stroke="#2c3644" stroke-width="1.5"/>
+  <rect x="39" y="9" width="15" height="15" rx="2" fill="#5a6c88"/>
+  <!-- power symbol on the die -->
+  <g stroke="#3fc73f" stroke-width="2.2" fill="none" stroke-linecap="round">
+    <path d="M 42.6 14.2 A 5.4 5.4 0 1 0 50.4 14.2"/>
+    <line x1="46.5" y1="11" x2="46.5" y2="16.5"/>
+  </g>
+  <!-- boot arrow: chip -> ESP slice -->
+  <path d="M 36 29 Q 24 33 17 37" fill="none" stroke="#f08000" stroke-width="3.4" stroke-linecap="round"/>
+  <polygon points="13,40.5 21,36 19.5,42.5" fill="#f08000"/>
+  <!-- drive body -->
+  <rect x="4" y="38" width="56" height="20" rx="3.5" fill="#cfd8e6" stroke="#5a6880" stroke-width="1.6"/>
+  <!-- partition bar: ESP slice (amber) + main volume -->
+  <rect x="9" y="43" width="12" height="10" rx="1.5" fill="#f5b821" stroke="#a06900" stroke-width="1.3"/>
+  <rect x="23" y="43" width="32" height="10" rx="1.5" fill="#8e9cb4" stroke="#5a6880" stroke-width="1.3"/>
+  <!-- activity LED -->
+  <circle cx="56" cy="55" r="1.6" fill="#3fc73f"/>
+</svg>

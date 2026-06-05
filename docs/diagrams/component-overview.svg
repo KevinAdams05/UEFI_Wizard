@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 760"
+     width="920" height="760"
+     font-family="Noto Sans, DejaVu Sans, sans-serif" font-size="13">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#444"/>
+    </marker>
+    <style>
+      .app       { fill: #d8e7f5; stroke: #1f4f7a; stroke-width: 1.5; rx: 8; ry: 8; }
+      .ui        { fill: #e3f3e8; stroke: #2d6a3a; stroke-width: 1.5; rx: 8; ry: 8; }
+      .backend   { fill: #fef5d4; stroke: #8a6d10; stroke-width: 1.5; rx: 8; ry: 8; }
+      .external  { fill: #f0f0f0; stroke: #555;    stroke-width: 1.0; rx: 4; ry: 4; }
+      .cli       { fill: #f3eafa; stroke: #5a3d83; stroke-width: 1.5; rx: 8; ry: 8; stroke-dasharray: 5 4; }
+      .label     { font-weight: 600; fill: #1a1a1a; }
+      .small     { font-size: 11px; fill: #444; }
+      .smaller   { font-size: 10px; fill: #555; font-style: italic; }
+      .edge      { stroke: #444; stroke-width: 1.4; fill: none; }
+      .edge-dep  { stroke: #888; stroke-width: 1.0; fill: none; stroke-dasharray: 4 3; }
+      .title     { font-size: 18px; font-weight: 700; fill: #222; }
+      .legend    { font-size: 11px; fill: #333; }
+    </style>
+  </defs>
+
+  <text x="20" y="28" class="title">UEFI Wizard — component overview</text>
+  <text x="20" y="48" class="small">GUI and CLI share the same backend (ESPManager + LoaderInstaller). Dotted lines are dependencies on Haiku kit classes.</text>
+
+  <!-- ============ GUI side ============ -->
+
+  <!-- App (BApplication) -->
+  <rect x="320" y="80" width="280" height="56" class="app"/>
+  <text x="460" y="102" text-anchor="middle" class="label">App</text>
+  <text x="460" y="120" text-anchor="middle" class="small">BApplication subclass · About via BAboutWindow</text>
+
+  <!-- MainWindow -->
+  <rect x="280" y="170" width="360" height="60" class="app"/>
+  <text x="460" y="192" text-anchor="middle" class="label">MainWindow</text>
+  <text x="460" y="210" text-anchor="middle" class="small">BWindow + BCardLayout wizard (6 pages, footer nav)</text>
+  <path d="M 460 136 L 460 170" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- DiskPicker -->
+  <rect x="80" y="270" width="220" height="76" class="ui"/>
+  <text x="190" y="292" text-anchor="middle" class="label">DiskPicker</text>
+  <text x="190" y="310" text-anchor="middle" class="small">BView wizard page</text>
+  <text x="190" y="326" text-anchor="middle" class="small">BColumnListView of disks</text>
+  <text x="190" y="340" text-anchor="middle" class="smaller">posts kMsgDiskSelected</text>
+  <path d="M 350 230 C 300 250, 230 250, 220 270" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- WorkerThread -->
+  <rect x="350" y="270" width="240" height="76" class="ui"/>
+  <text x="470" y="292" text-anchor="middle" class="label">WorkerThread</text>
+  <text x="470" y="310" text-anchor="middle" class="small">spawn_thread + BMessenger</text>
+  <text x="470" y="326" text-anchor="middle" class="small">runs the work plan off-window</text>
+  <text x="470" y="340" text-anchor="middle" class="smaller">posts kMsgWorkerLog/Done/Failed</text>
+  <path d="M 470 230 L 470 270" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- IProgressLogger family -->
+  <rect x="640" y="270" width="240" height="100" class="external"/>
+  <text x="760" y="290" text-anchor="middle" class="label">IProgressLogger</text>
+  <text x="760" y="306" text-anchor="middle" class="small">interface (Step / Detail / Warn / Error)</text>
+  <text x="760" y="326" text-anchor="middle" class="smaller">— NullProgressLogger</text>
+  <text x="760" y="342" text-anchor="middle" class="smaller">— ConsoleLogger (CLI)</text>
+  <text x="760" y="358" text-anchor="middle" class="smaller">— MessengerLogger (GUI)</text>
+
+  <!-- ============ Backend ============ -->
+
+  <!-- ESPManager -->
+  <rect x="160" y="400" width="280" height="160" class="backend"/>
+  <text x="300" y="422" text-anchor="middle" class="label">ESPManager</text>
+  <line x1="170" y1="430" x2="430" y2="430" stroke="#8a6d10" stroke-width="0.8"/>
+  <text x="170" y="450" class="small">Inspect(devicePath) → ESPInspection</text>
+  <text x="170" y="470" class="small">CreateESP(devicePath, sizeBytes)</text>
+  <text x="170" y="486" class="smaller">  prepare → CreateChild → commit</text>
+  <text x="170" y="500" class="smaller">  → maybe Uninitialize → commit</text>
+  <text x="170" y="514" class="smaller">  → Initialize FAT → commit</text>
+  <text x="170" y="534" class="small">Mount / Unmount / DeleteByID</text>
+  <path d="M 425 346 C 400 380, 350 390, 320 400" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- LoaderInstaller -->
+  <rect x="500" y="400" width="280" height="160" class="backend"/>
+  <text x="640" y="422" text-anchor="middle" class="label">LoaderInstaller</text>
+  <line x1="510" y1="430" x2="770" y2="430" stroke="#8a6d10" stroke-width="0.8"/>
+  <text x="510" y="450" class="small">Install(mountedESP, loaderSrc)</text>
+  <text x="510" y="466" class="smaller">  copy haiku_loader.efi to</text>
+  <text x="510" y="480" class="smaller">  /EFI/BOOT/BOOT&lt;arch&gt;.EFI</text>
+  <text x="510" y="494" class="smaller">  + /EFI/Haiku/haiku_loader.efi</text>
+  <text x="510" y="514" class="smaller">  rename existing → *_old.EFI</text>
+  <text x="510" y="540" class="small">Uses ArchUtils for filename</text>
+  <path d="M 515 346 C 540 380, 580 390, 600 400" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- ============ External Haiku APIs (right column) ============ -->
+  <rect x="800" y="400" width="100" height="56" class="external"/>
+  <text x="850" y="420" text-anchor="middle" class="small">BDiskDevice-</text>
+  <text x="850" y="434" text-anchor="middle" class="small">Roster</text>
+  <text x="850" y="448" text-anchor="middle" class="smaller">BPartition,</text>
+  <path d="M 440 460 C 700 460, 770 430, 800 425" class="edge-dep"/>
+
+  <rect x="800" y="468" width="100" height="44" class="external"/>
+  <text x="850" y="488" text-anchor="middle" class="small">BFile,</text>
+  <text x="850" y="502" text-anchor="middle" class="small">find_directory</text>
+  <path d="M 780 480 L 800 488" class="edge-dep"/>
+
+  <!-- ============ Shared utilities ============ -->
+  <rect x="160" y="600" width="620" height="46" class="external"/>
+  <text x="170" y="618" class="small"><tspan font-weight="600">Shared:</tspan> ArchUtils (DefaultBootFileName / FindLoaderSourcePath)  ·  Constants (kAppSignature, kEFISystemPartitionGUID, kDefaultESPSize, BMessage 'what' codes)</text>
+  <text x="170" y="636" class="smaller">Used by both ESPManager / LoaderInstaller and the CLI / GUI front ends.</text>
+
+  <!-- ============ CLI side ============ -->
+  <rect x="50" y="680" width="320" height="60" class="cli"/>
+  <text x="210" y="702" text-anchor="middle" class="label">UEFIWizardCLI</text>
+  <text x="210" y="720" text-anchor="middle" class="small">/boot/system/bin/uefi_wizard</text>
+  <text x="210" y="734" text-anchor="middle" class="smaller">commands: list / inspect / auto / create-esp / copy-loader / delete</text>
+  <path d="M 210 680 C 210 620, 250 580, 290 560" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- Note that CLI uses both backend classes -->
+  <text x="390" y="710" class="smaller">— uses the same ESPManager and LoaderInstaller classes,</text>
+  <text x="390" y="724" class="smaller">  with a ConsoleLogger implementing IProgressLogger.</text>
+
+  <!-- ============ Legend ============ -->
+  <rect x="20" y="60" width="14" height="14" class="app"/>
+  <text x="40" y="71" class="legend">Application</text>
+  <rect x="120" y="60" width="14" height="14" class="ui"/>
+  <text x="140" y="71" class="legend">GUI / view</text>
+  <rect x="220" y="60" width="14" height="14" class="backend"/>
+  <text x="240" y="71" class="legend">Backend</text>
+  <rect x="320" y="60" width="14" height="14" class="cli"/>
+  <text x="340" y="71" class="legend">CLI</text>
+  <rect x="420" y="60" width="14" height="14" class="external"/>
+  <text x="440" y="71" class="legend">External / interface</text>
+</svg>

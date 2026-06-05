@@ -1,0 +1,38 @@
+name			uefi_wizard
+version			0.1.0-1
+architecture	x86_64
+summary			"Finish UEFI installation of Haiku"
+
+description		"A standalone post-install tool for Haiku on UEFI systems.
+
+Haiku's built-in Installer writes a BIOS boot sector and never touches the
+EFI System Partition. On modern UEFI-only hardware this leaves the disk
+unbootable. This tool finishes the job:
+
+  - Detects (or creates) a 256 MB FAT32 EFI System Partition
+  - Tags it with the correct GPT type GUID
+  - Copies haiku_loader.efi to /EFI/BOOT/BOOTX64.EFI and /EFI/Haiku/
+
+Includes a guided GUI wizard and a haiku-uefi-setup CLI for scripted
+recovery from a live USB session."
+
+packager		"Kevin Adams <kevinadams05@gmail.com>"
+vendor			"Kevin Adams"
+
+licenses {
+	"MIT"
+}
+
+copyrights {
+	"2026 Kevin Adams"
+}
+
+provides {
+	uefi_wizard = 0.1.0
+	app:UEFIWizard = 0.1.0
+	cmd:uefi_wizard = 0.1.0
+}
+
+requires {
+	haiku >= r1~beta5
+}
