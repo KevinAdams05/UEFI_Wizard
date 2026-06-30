@@ -352,7 +352,7 @@ main(int argc, char* argv[])
 			return 1;
 		}
 		off_t bytes = kDefaultESPSize;
-		for (int i = 3; i < argc - 1; i++) {
+		for (int32 i = 3; i < argc - 1; i++) {
 			if (strcmp(argv[i], "--size") == 0) {
 				int mb = atoi(argv[i + 1]);
 				if (mb > 0)
@@ -368,7 +368,7 @@ main(int argc, char* argv[])
 			return 1;
 		}
 		off_t bytes = kDefaultESPSize;
-		for (int i = 3; i < argc - 1; i++) {
+		for (int32 i = 3; i < argc - 1; i++) {
 			if (strcmp(argv[i], "--size") == 0) {
 				int mb = atoi(argv[i + 1]);
 				if (mb > 0)

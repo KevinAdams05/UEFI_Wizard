@@ -113,7 +113,7 @@ MainWindow::MainWindow()
 	fWorker(NULL),
 	fFinalDestination()
 {
-	for (int i = 0; i < PAGE_COUNT; i++)
+	for (int32 i = 0; i < PAGE_COUNT; i++)
 		fPages[i] = NULL;
 
 	_BuildLayout();
@@ -255,7 +255,7 @@ MainWindow::_BuildLayout()
 	BView* cardHost = new BView("card_host", B_WILL_DRAW);
 	fCardLayout = new BCardLayout();
 	cardHost->SetLayout(fCardLayout);
-	for (int i = 0; i < PAGE_COUNT; i++)
+	for (int32 i = 0; i < PAGE_COUNT; i++)
 		fCardLayout->AddView(fPages[i]);
 
 	fBackButton = new BButton("back",

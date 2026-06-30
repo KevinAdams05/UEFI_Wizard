@@ -102,7 +102,7 @@ WorkerThread::WaitForCompletion()
 int32
 WorkerThread::_ThreadEntry(void* data)
 {
-	return ((WorkerThread*)data)->_Run();
+	return static_cast<WorkerThread*>(data)->_Run();
 }
 
 
