@@ -1,5 +1,8 @@
 # UEFI Wizard
 
+> [!WARNING]
+> Partition and disk operations can be destructive! Please make sure important data is backed up, and pay close attention to drive selection.
+
 > [!NOTE]
 > An LLM was used to aid in development of this code.
 
